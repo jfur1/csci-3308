@@ -1,0 +1,180 @@
+John Furlong
+March 3, 2019
+Lab 6
+
+
+Question 1:
+
+postgres=# CREATE TABLE IF NOT EXISTS schools(
+postgres(#  university_name VARCHAR(20),
+postgres(#  date_established DATE NOT NULL,
+postgres(#  address VARCHAR(40),
+postgres(#  student_population INT NOT NULL,
+postgres(#  acceptance_rate real
+postgres(# );
+CREATE TABLE
+
+
+Quesiton 2:
+
+postgres=# insert into schools(university_name, date_established, address, student_population, acceptance_rate)VALUES('CU Boulder', to_date('1876','YYYY'), '1100 28th St, Boulder, CO 80303', 35000, 80.0);
+INSERT 0 1
+
+
+Quesiton 3:
+
+postgres=# select name from football_players order by major;
+       name        
+-------------------
+ Cedric Vega
+ Wade Farmer
+ Erick Graves
+ Jared Castillo
+ Doyle Huff
+ Myron Walters
+ Charles Porter
+ Melba Pope
+ Rafael Boreous
+ Javier Washington
+(10 rows)
+
+
+Question 4:
+
+postgres=# select name from football_players where rushing_yards > 69;
+      name      
+----------------
+ Erick Graves
+ Charles Porter
+ Rafael Boreous
+ Jared Castillo
+(4 rows)
+
+
+Question 5:
+
+postgres=# select * from football_games where visitor_name='Nebraska';
+ visitor_name | home_score | visitor_score | game_date  |   players   
+--------------+------------+---------------+------------+-------------
+ Nebraska     |         33 |            28 | 2018-09-08 | {2,3,4,5,6}
+(1 row)
+
+
+Question 6:
+
+postgres=# select * from football_games where home_score > visitor_score;
+  visitor_name  | home_score | visitor_score | game_date  |   players   
+----------------+------------+---------------+------------+-------------
+ Colorado State |         45 |            13 | 2018-08-31 | {1,2,3,4,5}
+ Nebraska       |         33 |            28 | 2018-09-08 | {2,3,4,5,6}
+ New Hampshire  |         45 |            14 | 2018-09-15 | {3,4,5,6,7}
+ UCLA           |         38 |            16 | 2018-09-28 | {4,5,6,7,8}
+ Arizona State  |         28 |            21 | 2018-10-06 | {5,6,7,8,9}
+(5 rows)
+
+
+Question 7:
+
+postgres=# select * from football_games where game_date > '2018-08-01' and game_date < '2018-11-25';
+    visitor_name     | home_score | visitor_score | game_date  |   players    
+---------------------+------------+---------------+------------+--------------
+ Colorado State      |         45 |            13 | 2018-08-31 | {1,2,3,4,5}
+ Nebraska            |         33 |            28 | 2018-09-08 | {2,3,4,5,6}
+ New Hampshire       |         45 |            14 | 2018-09-15 | {3,4,5,6,7}
+ UCLA                |         38 |            16 | 2018-09-28 | {4,5,6,7,8}
+ Arizona State       |         28 |            21 | 2018-10-06 | {5,6,7,8,9}
+ Southern California |         20 |            31 | 2018-10-13 | {6,7,8,9,10}
+ Washington          |         13 |            27 | 2018-10-20 | {7,8,9,10,1}
+ Oregon State        |         34 |            41 | 2018-10-27 | {8,9,10,1,2}
+ Arizona             |         34 |            42 | 2018-11-02 | {9,10,1,2,3}
+ Washington State    |          7 |            31 | 2018-11-10 | {10,1,2,3,4}
+ Utah                |          7 |            30 | 2018-11-17 | {1,2,3,4,5}
+ California          |         21 |            33 | 2018-11-24 | {2,3,4,5,6}
+(12 rows)
+
+
+Question 8:
+
+postgres=# CREATE VIEW games_won as select count(*) from football_games;
+CREATE VIEW
+postgres=# select count(*) from football_games where home_score > visitor_score;
+ count 
+-------
+     5
+(1 row)
+
+Question 9:
+
+postgres=# CREATE VIEW games_played as select count(*) from football_games;
+CREATE VIEW
+postgres=# select count(*) from football_games;
+ count 
+-------
+    12
+(1 row)
+
+
+Question 10:
+
+postgres=# select *, cast(wins.count as float)/cast(games_played.count as float) as "win %" from wins, games_played;
+ count | count |       win %       
+-------+-------+-------------------
+     5 |    12 | 0.416666666666667
+(1 row)
+
+
+Question 11:
+
+postgres=# select count(*) from football_games where(select id from football_players where name = 'Cedric Vega')=ANY(players);
+ count 
+-------
+     6
+(1 row)
+
+
+Question 12:
+
+postgres=# select((fp.rushing_yards / count(*)::float)) as Average from football_games fg, football_players fp where 
+postgres-# fp.id = ANY(players) and fp.name = 'Cedric Vega' group by fp.rushing_yards;
+     average      
+------------------
+ 4.16666666666667
+(1 row)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

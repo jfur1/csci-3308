@@ -1,0 +1,81 @@
+<% include ../partials/header %>
+<% include ../partials/menu %>
+	<div class="container">
+		<br>
+		<div class="jumbotron">
+		  <h1 class="display-4">Fall 2018 Stats</h1>
+		  <p class="lead">Detailed information on how the Buffs are doing in the 2018 Football Season!</p>
+		</div>
+		
+		<table class="table table-bordered" id="stats_table">
+			<tr>
+				<th class="align-bottom" rowspan="2">Game Date</th>
+				<th class="align-bottom"rowspan="2">Opposing Team Name</th>
+				<th class="text-center" colspan="2">Score</th>
+				<th class="align-bottom" rowspan="2">Winner</th>
+			</tr>
+			<tr>
+				<th>Home Score</th>
+				<th>Opp. Score</th>
+			</tr>
+			<!-- TODO: Iterate over the Football_table data here 
+						1. Display the information for each row (date, name, home score, visitor score)
+						2. Determine who the winner is and display it in the final column
+
+						If you're not sure how the logic should work here, review the code you add to the client-side javascript
+						that ran onload for Lab 5.  We are doing the same kind of operations we had in Lab 5, but we are instead having
+						everything handled via server-side scriptes
+			-->
+			<!-- end table headers  -->
+
+			<!-- Magic goes here; we're still in the <table> tag -->
+			<!-- Now we'll build rows for our table (by string manipulation) -->
+
+			<!-- Rememeber <tr> tag is for a row; <td> tag is per column -->
+				<% if (games) { 
+					var game_rows = '';
+					<!-- ForEach will run the function(item){} code for each element in your games array -->
+					<!-- To see what's in games array; check your server.js - we put the out of our first query here -->
+					 games.forEach(function(item){
+						 <!-- Loop code each `item` in our games array -->
+						 <!-- Begin <tr> our row -->
+						 game_rows += '<tr><td>' + item.game_date + '</td>';
+						 <!-- Notice above how we access the game_Date(column) in sql store, we've to do the same for all the other columns down here -->
+						 <!-- if you run your query in psql, you can see the response and can see the columns that'll be returned by the query. You can then called them like item.game_Date, item.visitor_Score, etc -->
+						 game_rows += '<td>' + item.visitor_name+  '</td>';
+						 game_rows += '<td>' + item.home_score + '</td>';
+						 game_rows += '<td>' + item.visitor_score  + '</td>';
+						 <!-- Decide who won; and fill in the last column -->
+						 <!-- Also close the </tr> tag because our row is done. -->
+						 if(item.home_score > item.visitor_score)
+						 {
+							 game_rows += '<td>CU Boulder</td></tr>';
+						 }
+						 else
+						 {
+							 game_rows += '<td>' + item.visitor_name + '</td></tr>';
+						 }
+					});%>
+					<!-- We built this game_rows by string manipulation and now it contains all the rows of data -->
+					<!-- We can display these rows just by accessing the game_rows element like we did here: Notice the tag used this time  -->
+				<%- game_rows %>
+				<% } %>
+		</table>
+		<br>
+		<table class="table text-center">
+			<tr>
+				<th>Wins</th>
+				<th>Losses</th>
+			</tr>
+			<tr>
+				<td> <%- total_wins %> </td>
+				<!-- Display the total_losses variable here; set in server.js -->
+				<td> <%- total_losses %></td> <!-- TODO: Display the total number of wins here.  
+							    This value should come from your server.js files query, don't calculate it in this file! --></td>
+				<!-- TODO: Display the total number of losses here.  
+							    This value should come from your server.js files query, don't calculate it in this file! --></td>
+			</tr>
+		</table>
+		
+	</div>
+<% include ../partials/footer %>

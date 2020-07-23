@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Bootstrap Registration</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+
+<div class="container">
+  <h1>This is a Sample Form</h1>
+  <hr>
+
+  <label for="nickname"><b>Nickname</b></label><br>
+  <input type="text" placeholder="Enter Nickname" name="nickname" required>
+  <br>
+  
+  <label for="email"><b>Email Address</b></label><br>
+  <input type="text" placeholder="Enter Email" name="email" required>
+  <br>
+
+  <label for="psw"><b>Password</b></label><br>
+  <input type="password" placeholder="Enter Password" name="psw" required>
+  <br><br>
+
+  <p>Gender</p>
+    <input type="radio" name="gender" value="male"> Male<br>
+    <input type="radio" name="gender" value="female"> Female<br>
+    <input type="radio" name="gender" value="other"> Other<br>
+    <input type="radio" name="gender" value="other"> Prefer Not to Say<br><br>
+
+  <p>Security Question</p>
+    <select name="ques">
+        <option value="pet">What is your favorite type of pet?</option>
+        <option value="food">What is your favorite type of food?</option>
+        <option value="city">What city were you born in?</option>
+    </select><br>
+    <br>
+
+    <label for="ans"><b>Answer</b></label><br>
+    <input type="text" placeholder="Security Answer" name="ans" required>
+    <br><br>
+
+    <div class="container">
+      <p><b>My Favorite Programming Languages</b></p>
+      <form>
+        <label class="checkbox-inline">
+          <input type="checkbox" value="">C/C++
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" value="">Java
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" value="">Javascript
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" value="">Go
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" value="">C#
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" value="">PHP
+        </label>
+      </form>
+    </div>
+    <br>
+
+    <p><b>Additional Information</b></p>
+    <p>About Me</p>
+    <textarea rows="4" cols="50"></textarea><br>
+
+    <button type="button" class="btn btn-success">Submit</button><br><br>
+
+    
+
+    </body>
+  </html>
+
+
+
+
+
+
